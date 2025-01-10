@@ -21,8 +21,8 @@ public class MathController {
     }
 
 
-    @RequestMapping(value = "/subtract/{numberOne}/{numberTwo}", method =RequestMethod.GET)
-    public Double subtract(@PathVariable(value = "numberOne" )String numberOne, @PathVariable(value = "numberTwo") String numberTwo ) throws Exception{
+    @RequestMapping(value = "/subtract/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+    public Double subtract(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
 
         if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
@@ -34,22 +34,34 @@ public class MathController {
     }
 
     @RequestMapping(value = "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
-    public Double multiplication (@PathVariable(value="numberOne") String numberOne, @PathVariable(value="numberTow") String numberTwo) throws Exception{
+    public Double multiplication(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value");
         }
 
-        return Double.parseDouble(numberOne) * Double.parseDouble(numberTwo);
+        return convertToDouble(numberOne) * convertToDouble(numberTwo);
+    }
+
+    @GetMapping()
+    @RequestMapping( value = "/division/{numberOne}/{numberTwo}")
+    public Double division(@PathVariable(value="numberOne") String numberOne, @PathVariable(value="numberTwo") String numberTwo){
+
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)){
+            throw new UnsupportedMathOperationException("Please set a numeric value");
+        }
+        return convertToDouble(numberOne) / convertToDouble(numberTwo);
     }
 
 
+
+
     private boolean isNumeric(String strnumber) {
-       if (strnumber == null) return false;
+        if (strnumber == null) return false;
 
-       String number =strnumber.replaceAll(",", ".");
+        String number = strnumber.replaceAll(",", ".");
 
-       return number.matches("[-+]?[0-9]*\\.?[0-9]+");
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
 
     }
 
@@ -60,7 +72,7 @@ public class MathController {
         //converter a virgula em ponto padrão americano
         String number = stringnumberOne.replaceAll(",", ",");
 
-        if(isNumeric(number)) return Double.parseDouble(number);
+        if (isNumeric(number)) return Double.parseDouble(number);
 
         return 0D;
     }
