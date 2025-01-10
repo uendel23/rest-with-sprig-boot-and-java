@@ -33,6 +33,16 @@ public class MathController {
 
     }
 
+    @RequestMapping(value = "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+    public Double multiplication (@PathVariable(value="numberOne") String numberOne, @PathVariable(value="numberTow") String numberTwo) throws Exception{
+
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
+            throw new UnsupportedMathOperationException("Please set a numeric value");
+        }
+
+        return Double.parseDouble(numberOne) * Double.parseDouble(numberTwo);
+    }
+
 
     private boolean isNumeric(String strnumber) {
        if (strnumber == null) return false;
