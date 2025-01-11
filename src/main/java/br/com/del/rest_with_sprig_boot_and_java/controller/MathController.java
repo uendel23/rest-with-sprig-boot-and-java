@@ -8,7 +8,7 @@ import br.com.del.rest_with_sprig_boot_and_java.math.SimpleMath;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-//import static br.com.del.rest_with_sprig_boot_and_java.converters.NumberConverter.isNumeric;
+
 
 @RestController
 public class MathController {
