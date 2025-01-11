@@ -25,6 +25,8 @@ public class PersonServices {
         return persons;
     }
 
+
+
     public Person findById(String id) {
 
         logger.info("finding one person");
@@ -39,7 +41,31 @@ public class PersonServices {
 
     }
 
-    private Person mockPerson(int i) {
+    public Person create (Person person){
+
+        logger.info("creating one person!");
+
+        return person;
+    }
+
+    public Person update (Person person){
+
+        logger.info("Updating one person!");
+
+        return person;
+    }
+
+    public void delete (String id){
+
+        logger.info("Deliting one person!");
+
+    }
+
+
+
+
+
+    public Person mockPerson(int i) {
 
         logger.info("finding all people!");
 
