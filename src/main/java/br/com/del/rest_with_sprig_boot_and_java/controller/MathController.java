@@ -1,7 +1,7 @@
 package br.com.del.rest_with_sprig_boot_and_java.controller;
 
 import br.com.del.rest_with_sprig_boot_and_java.converters.NumberConverter;
-import br.com.del.rest_with_sprig_boot_and_java.exceptions.UnsupportedMathOperationException;
+import br.com.del.rest_with_sprig_boot_and_java.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import br.com.del.rest_with_sprig_boot_and_java.math.SimpleMath;
@@ -24,7 +24,7 @@ public class MathController {
     public Double sum(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
         return simpleMath.sum(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
 
@@ -36,7 +36,7 @@ public class MathController {
 
 
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
         return simpleMath.subtract(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
 
@@ -47,7 +47,7 @@ public class MathController {
     public Double multiplication(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
 
         return simpleMath.multiplication(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -58,7 +58,7 @@ public class MathController {
     public Double division(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
 
         return simpleMath.division(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
@@ -70,7 +70,7 @@ public class MathController {
     public Double average(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
 
         if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
         return simpleMath.average(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
     }
@@ -81,7 +81,7 @@ public class MathController {
     public Double squareRoot(@PathVariable(value = "number") String number) throws Exception {
 
         if (!NumberConverter.isNumeric(number)) {
-            throw new UnsupportedMathOperationException("Please set a numeric value");
+            throw new ResourceNotFoundException("Please set a numeric value");
         }
         return simpleMath.squareRoot(NumberConverter.convertToDouble(number));
 

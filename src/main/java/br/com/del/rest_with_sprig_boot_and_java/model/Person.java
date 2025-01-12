@@ -1,15 +1,31 @@
 package br.com.del.rest_with_sprig_boot_and_java.model;
 
+import jakarta.persistence.*;
+import org.springframework.lang.NonNull;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Person implements Serializable {
+@Entity
+@Table(name = "person")
+public class Person implements Serializable{
+
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "first_name", nullable = false,length = 50)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastNane;
+
+    @Column(nullable = false, length = 100)
     private String address;
+
+    @Column(nullable = false, length = 10)
     private String Gender;
 
     public Person() {
