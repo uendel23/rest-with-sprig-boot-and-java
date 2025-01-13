@@ -1,59 +1,66 @@
 package br.com.del.rest_with_sprig_boot_and_java.services;
 
 import br.com.del.rest_with_sprig_boot_and_java.exceptions.ResourceNotFoundException;
+import br.com.del.rest_with_sprig_boot_and_java.mapper.ModelMapper;
 import br.com.del.rest_with_sprig_boot_and_java.model.Person;
 import br.com.del.rest_with_sprig_boot_and_java.repository.PersonRepository;
+import br.com.del.rest_with_sprig_boot_and_java.vo.vo1.PersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 
 @Service
 public class PersonServices {
 
 
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
-
     @Autowired
     private PersonRepository repository;
 
+
     @GetMapping
-    public List<Person> findAll() {
+    public List<PersonVo> findAll() {
         logger.info("finding all person");
-        return repository.findAll();
+        return ModelMapper.parseListObject(repository.findAll(), PersonVo.class);
+
     }
 
 
-
-    public Person findById(Long id) {
-
+    public PersonVo findById(Long id) {
         logger.info("finding one person");
 
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+        var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+        return ModelMapper.parseObject(entity, PersonVo.class);
+
+
     }
 
 
-    public Person create(Person person) {
+    public PersonVo create(Person personVo) {
 
         logger.info("creating one person!");
-
-        return repository.save(person);
+        var entity = ModelMapper.parseObject(personVo, Person.class);
+        var vo = ModelMapper.parseObject(repository.save(entity), PersonVo.class);
+        return vo;
     }
 
 
-    public Person update(Person person) {
-
+    public PersonVo update(Person personVo) {
         logger.info("Updating one person!");
 
-        var entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+        var entity = repository.findById(personVo.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+        entity.setFirstName(personVo.getFirstName());
+        entity.setLastName(personVo.getLastName());
+        entity.setAddress(personVo.getAddress());
+        entity.setGender(personVo.getGender());
 
-        entity.setFirstName(person.getFirstName());
-        entity.setLastNane(person.getLastNane());
-        entity.setAddress(person.getAddress());
-        entity.setGender(person.getGender());
-
-        return repository.save(entity);
+        var vo = ModelMapper.parseObject(repository.save(entity), PersonVo.class);
+        return vo;
 
     }
 

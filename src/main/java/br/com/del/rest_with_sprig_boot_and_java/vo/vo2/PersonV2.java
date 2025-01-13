@@ -1,33 +1,22 @@
-package br.com.del.rest_with_sprig_boot_and_java.model;
-
-import jakarta.persistence.*;
+package br.com.del.rest_with_sprig_boot_and_java.vo.vo2;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "person")
-public class Person implements Serializable{
+
+public class PersonV2 implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-
-    @Column(name = "first_name", nullable = false,length = 50)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-
-    @Column(nullable = false, length = 100)
     private String address;
-
-    @Column(nullable = false, length = 10)
     private String Gender;
 
-    public Person() {
+
+    public PersonV2() {
     }
 
     public Long getId() {
@@ -74,8 +63,8 @@ public class Person implements Serializable{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person personVo = (Person) o;
-        return Objects.equals(id, personVo.id) && Objects.equals(firstName, personVo.firstName) && Objects.equals(lastName, personVo.lastName) && Objects.equals(address, personVo.address);
+        PersonV2 person = (PersonV2) o;
+        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address);
     }
 
     @Override
