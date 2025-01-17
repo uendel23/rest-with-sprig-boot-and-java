@@ -1,5 +1,6 @@
 package br.com.del.rest_with_sprig_boot_and_java;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -1,10 +1,11 @@
 package br.com.del.rest_with_sprig_boot_and_java.vo.vo2;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 
-public class PersonV2 implements Serializable{
+public class PersonVoV2 implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -14,9 +15,18 @@ public class PersonV2 implements Serializable{
     private String lastName;
     private String address;
     private String Gender;
+    private Date birthDay;
 
 
-    public PersonV2() {
+    public PersonVoV2() {
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 
     public Long getId() {
@@ -63,12 +73,12 @@ public class PersonV2 implements Serializable{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonV2 person = (PersonV2) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address);
+        PersonVoV2 that = (PersonVoV2) o;
+        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(Gender, that.Gender) && Objects.equals(birthDay, that.birthDay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address);
+        return Objects.hash(id, firstName, lastName, address, Gender, birthDay);
     }
 }

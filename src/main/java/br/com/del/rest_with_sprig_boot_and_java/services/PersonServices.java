@@ -1,17 +1,17 @@
 package br.com.del.rest_with_sprig_boot_and_java.services;
-
 import br.com.del.rest_with_sprig_boot_and_java.exceptions.ResourceNotFoundException;
 import br.com.del.rest_with_sprig_boot_and_java.mapper.ModelMapper;
+import br.com.del.rest_with_sprig_boot_and_java.mapper.custon.PersonMepper;
 import br.com.del.rest_with_sprig_boot_and_java.model.Person;
 import br.com.del.rest_with_sprig_boot_and_java.repository.PersonRepository;
 import br.com.del.rest_with_sprig_boot_and_java.vo.vo1.PersonVo;
+import br.com.del.rest_with_sprig_boot_and_java.vo.vo2.PersonVoV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+
 
 
 @Service
@@ -21,6 +21,8 @@ public class PersonServices {
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
     @Autowired
     private PersonRepository repository;
+    @Autowired
+    private PersonMepper mapper;
 
 
     @GetMapping
@@ -41,7 +43,7 @@ public class PersonServices {
     }
 
 
-    public PersonVo create(Person personVo) {
+    public PersonVo create(PersonVo personVo) {
 
         logger.info("creating one person!");
         var entity = ModelMapper.parseObject(personVo, Person.class);
@@ -73,4 +75,13 @@ public class PersonServices {
     }
 
 
+    public PersonVoV2 createV2(PersonVoV2 personV2) {
+        logger.info("creating one person with versio two V2!");
+
+        var entity = mapper.convertVoToEntity(personV2);
+        var vo = mapper.convertEntityToVo(repository.save(entity));
+        return vo;
+
+
+    }
 }
