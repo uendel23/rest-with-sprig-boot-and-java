@@ -1,19 +1,29 @@
 package br.com.del.rest_with_sprig_boot_and_java.vo.vo1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-
+//@JasonPropertyOrder define a orden como o jsn será estruturado
+@JsonPropertyOrder({"id, first_name, last_name, Gender, address"})
 public class PersonVo implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
 
     private Long id;
+    //@JsonProperty altera o nome do atributo no json
+    @JsonProperty("first_name")
     private String firstName;
+    //@JsonProperty altera o nome do atributo no json
+    @JsonProperty("last_name")
     private String lastName;
+    //@JsonIgnore omite o atributo na serelização do json
+    @JsonIgnore
     private String address;
     private String Gender;
 
